@@ -11,19 +11,16 @@ const servicesConfig = [
   {
     id: 't4-employees',
     number: '01',
-    tabLabel: '01 / TAX SERVICES',
+    tabLabel: 'T4 Employees',
     title: 'T4 Employees',
+    subtitle: 'Personal Tax Services',
     tone: 'folder-tone-1',
-    intro: 'Personal income tax preparation for individuals with employment income (T4).',
+    intro: 'Professional tax preparation and support tailored to individual taxpayers. Explore the services available to help manage your personal tax requirements.',
     services: [
-      'T1 personal income tax returns',
-      'T4 income reporting',
-      'Tax deductions & eligible expenses',
-      'Tax credits & refunds',
-      'Medical & charitable donation claims',
-      'Home office & employment expenses',
-      'Electronic tax filing (E-filing)',
-      'Convenient document submission by email'
+      'Service details coming soon',
+      'Tax preparation and filing',
+      'Individual tax support',
+      'Additional services to be announced'
     ],
     ctaText: 'Get started with T1',
     ctaLink: '#contact'
@@ -31,20 +28,16 @@ const servicesConfig = [
   {
     id: 'small-business',
     number: '02',
-    tabLabel: '02 / TAX SERVICES',
+    tabLabel: 'Small Business',
     title: 'Small Business',
+    subtitle: 'Small Business Services',
     tone: 'folder-tone-2',
-    intro: 'Tax and accounting support for self-employed individuals and small business owners.',
+    intro: 'Tax and accounting solutions designed to support business owners and self-employed professionals. More information about available services will be provided soon.',
     services: [
-      'Small business income tax prep',
-      'Self-employment income reporting',
-      'Business expense deductions',
-      'T2125 business activities statement',
-      'Bookkeeping',
-      'Payroll services',
-      'HST reporting & remittance',
-      'Annual T4 slips & Records of Employment',
-      'Business tax planning'
+      'Service details coming soon',
+      'Business tax support',
+      'Financial and accounting assistance',
+      'Additional services to be announced'
     ],
     ctaText: 'Small business support',
     ctaLink: '#contact'
@@ -52,18 +45,16 @@ const servicesConfig = [
   {
     id: 'corporations',
     number: '03',
-    tabLabel: '03 / TAX SERVICES',
+    tabLabel: 'Corporations',
     title: 'Corporations',
+    subtitle: 'Corporate Tax Services',
     tone: 'folder-tone-3',
-    intro: 'Professional tax preparation and accounting support for incorporated businesses.',
+    intro: 'Dedicated support for incorporated businesses and organizations. Discover the available solutions and professional services as more details become available.',
     services: [
-      'T2 corporate income tax returns',
-      'Corporate income & expense reporting',
-      'Eligible business expense deductions',
-      'Corporate tax planning',
-      'HST reporting & remittances',
-      'Payroll & employee-related tax reporting',
-      'Year-end tax preparation'
+      'Service details coming soon',
+      'Corporate tax support',
+      'Business financial assistance',
+      'Additional services to be announced'
     ],
     ctaText: 'Corporate T2 consultation',
     ctaLink: '#contact'
@@ -71,20 +62,16 @@ const servicesConfig = [
   {
     id: 'deceased-rights',
     number: '04',
-    tabLabel: '04 / TAX SERVICES',
+    tabLabel: 'Deceased & Rights & Things',
     title: 'Deceased & Rights & Things',
+    subtitle: 'Estate & Final Tax Services',
     tone: 'folder-tone-4',
-    intro: 'Specialized tax preparation for deceased individuals and their estates.',
+    intro: 'Specialized tax-related assistance for deceased individuals and estate matters. Further information about the services offered will be available soon.',
     services: [
-      'Final (Terminal T1) income tax returns',
-      'Deceased taxpayer tax preparation',
-      'Rights or Things returns',
-      'Optional returns, where applicable',
-      'Estate-related tax preparation',
-      'Deemed disposition considerations',
-      'RRSP/RRIF-related considerations',
-      'CRA clearance certificate guidance',
-      'Tax documentation & filing assistance'
+      'Service details coming soon',
+      'Estate-related tax assistance',
+      'Final tax return support',
+      'Additional services to be announced'
     ],
     ctaText: 'Estate tax guidance',
     ctaLink: '#contact'

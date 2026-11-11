@@ -967,7 +967,7 @@ ul {
               0 14px 34px -4px rgba(60, 12, 20, 0.14),
               0 4px 10px rgba(60, 12, 20, 0.06);
   padding: 26px 24px 28px 24px;
-  min-height: 545px;
+  min-height: 430px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1039,14 +1039,24 @@ ul {
   letter-spacing: -0.01em;
 }
 
+.folder-sub-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8c1d2e;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
 /* Subtitle / Intro */
 .folder-card-intro {
   font-size: 13px;
-  line-height: 1.45;
+  line-height: 1.48;
   color: #4a4a4a;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   max-width: 280px;
-  min-height: 38px;
+  min-height: 76px;
 }
 
 /* Thin Divider Line */
