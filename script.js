@@ -1,0 +1,320 @@
+/**
+ * TAXMAN (mytaxman.ca) &bull; Production Redesign Interactive Engine
+ * Controls: Folder Cascade Decorators, Sticky Header Blur, Testimonials Carousel,
+ * Scroll Reveal Animations, Mobile Navigation, and Email Inquiry Generator.
+ */
+
+// ==========================================================================
+// 1. SERVICES CONFIGURATION ARRAY (Decoupled & Easy to Edit)
+// ==========================================================================
+const servicesConfig = [
+  {
+    id: 't4-employees',
+    number: '01',
+    tabLabel: '01 / TAX SERVICES',
+    title: 'T4 Employees',
+    tone: 'folder-tone-1',
+    intro: 'Personal income tax preparation for individuals with employment income (T4).',
+    services: [
+      'T1 personal income tax returns',
+      'T4 income reporting',
+      'Tax deductions & eligible expenses',
+      'Tax credits & refunds',
+      'Medical & charitable donation claims',
+      'Home office & employment expenses',
+      'Electronic tax filing (E-filing)',
+      'Convenient document submission by email'
+    ],
+    ctaText: 'Get started with T1',
+    ctaLink: '#contact'
+  },
+  {
+    id: 'small-business',
+    number: '02',
+    tabLabel: '02 / TAX SERVICES',
+    title: 'Small Business',
+    tone: 'folder-tone-2',
+    intro: 'Tax and accounting support for self-employed individuals and small business owners.',
+    services: [
+      'Small business income tax prep',
+      'Self-employment income reporting',
+      'Business expense deductions',
+      'T2125 business activities statement',
+      'Bookkeeping',
+      'Payroll services',
+      'HST reporting & remittance',
+      'Annual T4 slips & Records of Employment',
+      'Business tax planning'
+    ],
+    ctaText: 'Small business support',
+    ctaLink: '#contact'
+  },
+  {
+    id: 'corporations',
+    number: '03',
+    tabLabel: '03 / TAX SERVICES',
+    title: 'Corporations',
+    tone: 'folder-tone-3',
+    intro: 'Professional tax preparation and accounting support for incorporated businesses.',
+    services: [
+      'T2 corporate income tax returns',
+      'Corporate income & expense reporting',
+      'Eligible business expense deductions',
+      'Corporate tax planning',
+      'HST reporting & remittances',
+      'Payroll & employee-related tax reporting',
+      'Year-end tax preparation'
+    ],
+    ctaText: 'Corporate T2 consultation',
+    ctaLink: '#contact'
+  },
+  {
+    id: 'deceased-rights',
+    number: '04',
+    tabLabel: '04 / TAX SERVICES',
+    title: 'Deceased & Rights & Things',
+    tone: 'folder-tone-4',
+    intro: 'Specialized tax preparation for deceased individuals and their estates.',
+    services: [
+      'Final (Terminal T1) income tax returns',
+      'Deceased taxpayer tax preparation',
+      'Rights or Things returns',
+      'Optional returns, where applicable',
+      'Estate-related tax preparation',
+      'Deemed disposition considerations',
+      'RRSP/RRIF-related considerations',
+      'CRA clearance certificate guidance',
+      'Tax documentation & filing assistance'
+    ],
+    ctaText: 'Estate tax guidance',
+    ctaLink: '#contact'
+  }
+];
+
+// ==========================================================================
+// 2. DOM CONTENT LOADED INITIALIZATION
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  initStickyHeader();
+  initMobileNav();
+  initFolderCascadeInteractions();
+  initTestimonialsCarousel();
+  initScrollReveal();
+  initContactForm();
+  updateCopyrightYear();
+});
+
+// ==========================================================================
+// 3. STICKY HEADER WITH SCROLL BLUR
+// ==========================================================================
+function initStickyHeader() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  function onScroll() {
+    if (window.scrollY > 20) {
+      header.classList.add('is-scrolled');
+    } else {
+      header.classList.remove('is-scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+// ==========================================================================
+// 4. MOBILE NAVIGATION TOGGLE
+// ==========================================================================
+function initMobileNav() {
+  const toggleBtn = document.querySelector('.mobile-menu-btn');
+  const mobileNav = document.getElementById('mobile-menu');
+  if (!toggleBtn || !mobileNav) return;
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.contains('is-open');
+    mobileNav.classList.toggle('is-open', !isOpen);
+    mobileNav.hidden = isOpen;
+    toggleBtn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+  });
+
+  // Close mobile nav when clicking any nav anchor
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('is-open');
+      mobileNav.hidden = true;
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+// ==========================================================================
+// 5. FOLDER CASCADE INTERACTIONS (Touch & Focus Support)
+// ==========================================================================
+function initFolderCascadeInteractions() {
+  const folders = document.querySelectorAll('.folder-card');
+
+  folders.forEach(folder => {
+    // Tap support for touch screens without hover
+    folder.addEventListener('click', (e) => {
+      if (e.target.closest('.folder-cta-link')) return; // allow cta navigation
+      
+      const wasTapped = folder.classList.contains('is-tapped');
+      folders.forEach(f => f.classList.remove('is-tapped'));
+      if (!wasTapped) {
+        folder.classList.add('is-tapped');
+      }
+    });
+
+    // Keyboard navigation: Enter or Space triggers subtle lift
+    folder.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (!e.target.closest('a')) {
+          e.preventDefault();
+          folder.classList.toggle('is-tapped');
+        }
+      }
+    });
+  });
+
+  // Wire top header and mobile drawer 4-service links to spotlight target folder
+  const navFolderLinks = document.querySelectorAll('[data-folder-target]');
+  navFolderLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const targetNum = link.getAttribute('data-folder-target');
+      const targetFolder = document.querySelector(`.folder-card[data-folder="${targetNum}"]`);
+
+      document.querySelectorAll('.nav-links .nav-item').forEach(navItem => {
+        navItem.classList.toggle('active', navItem.getAttribute('data-folder-target') === targetNum);
+      });
+
+      if (targetFolder) {
+        folders.forEach(f => f.classList.remove('is-tapped', 'is-active'));
+        targetFolder.classList.add('is-active');
+      }
+    });
+  });
+
+  // Remove tap/active state when clicking outside folders and service nav links
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.folder-card') && !e.target.closest('[data-folder-target]')) {
+      folders.forEach(f => f.classList.remove('is-tapped', 'is-active'));
+    }
+  });
+}
+
+// ==========================================================================
+// 6. TESTIMONIALS SCROLL-SNAP CAROUSEL
+// ==========================================================================
+function initTestimonialsCarousel() {
+  const track = document.querySelector('.testimonial-track-wrap');
+  const prevBtn = document.querySelector('[data-carousel="prev"]');
+  const nextBtn = document.querySelector('[data-carousel="next"]');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  function scrollCards(direction) {
+    const card = track.querySelector('.testimonial-card');
+    if (!card) return;
+    const cardWidth = card.offsetWidth + 24; // width + gap
+    track.scrollBy({
+      left: direction * cardWidth,
+      behavior: 'smooth'
+    });
+  }
+
+  prevBtn.addEventListener('click', () => scrollCards(-1));
+  nextBtn.addEventListener('click', () => scrollCards(1));
+}
+
+// ==========================================================================
+// 7. SCROLL REVEAL ANIMATIONS (IntersectionObserver & Fallback, 60fps)
+// ==========================================================================
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  if (!revealElements.length) return;
+
+  function checkReveals() {
+    const vh = window.innerHeight || document.documentElement.clientHeight || 1000;
+    revealElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= vh + 100) {
+        el.classList.add('is-revealed');
+      }
+    });
+  }
+
+  // Initial immediate reveal of visible elements
+  checkReveals();
+  window.addEventListener('scroll', checkReveals, { passive: true });
+  window.addEventListener('resize', checkReveals, { passive: true });
+
+  // IntersectionObserver for smooth 60fps triggers
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: '0px 0px 50px 0px',
+      threshold: 0.05
+    });
+
+    revealElements.forEach(el => {
+      if (!el.classList.contains('is-revealed')) {
+        observer.observe(el);
+      }
+    });
+  }
+}
+
+// ==========================================================================
+// 8. CONTACT INQUIRY FORM (Generates Safe Mailto Draft)
+// ==========================================================================
+function initContactForm() {
+  const form = document.getElementById('inquiry-form');
+  const statusEl = document.getElementById('form-status');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = form.elements['name'] ? form.elements['name'].value.trim() : '';
+    const email = form.elements['email'] ? form.elements['email'].value.trim() : '';
+    const service = form.elements['service'] ? form.elements['service'].value : '';
+    const message = form.elements['message'] ? form.elements['message'].value.trim() : '';
+
+    const subject = encodeURIComponent(`TAXMAN Inquiry: ${service || 'General'} - ${name}`);
+    const body = encodeURIComponent(
+      `Hello TAXMAN Team,\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n` +
+      `Service Requested: ${service}\n\n` +
+      `Inquiry Details:\n${message}\n\n` +
+      `Sent via mytaxman.ca contact form.`
+    );
+
+    if (statusEl) {
+      statusEl.textContent = 'Opening your email client with your prepared tax inquiry...';
+      statusEl.style.color = '#8c1d2e';
+      statusEl.style.fontWeight = '700';
+    }
+
+    setTimeout(() => {
+      window.location.href = `mailto:returns@mytaxman.ca?subject=${subject}&body=${body}`;
+    }, 250);
+  });
+}
+
+// ==========================================================================
+// 9. AUTOMATIC COPYRIGHT YEAR
+// ==========================================================================
+function updateCopyrightYear() {
+  const yearEl = document.getElementById('copyright-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+}
